@@ -8,9 +8,9 @@ const UserInfo = () => {
     return (
         <section className="flex items-center">
             <Avatar />
-            <p className="ml-2">Username</p>
+            <p className="ml-2 font-bold">Username</p>
             <Icon w={5} h={5} as={DotIcon} />
-            <p>time posted on</p>
+            <p className=" font-medium text-xs">18 min ago</p>
         </section>
     );
 };
