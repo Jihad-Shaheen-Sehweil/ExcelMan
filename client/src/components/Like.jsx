@@ -4,9 +4,9 @@ import { BiLike as LikeIcon } from "react-icons/bi";
 
 const Like = () => {
     return (
-        <div className="flex items-center ml-3 group">
+        <div className="flex items-center ml-3 group cursor-pointer">
             <Icon
-                className="group-hover:text-blue-600"
+                className="group-hover:text-blue-600 "
                 color="black"
                 w={6}
                 h={6}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon, Tooltip } from "@chakra-ui/react";
+import { Icon } from "@chakra-ui/react";
 import {
     IoMdMoon as OutlinedMoonIcon,
     IoMdAddCircleOutline as OutlinedAddIcon,
@@ -8,12 +8,13 @@ import { RiFileExcel2Fill as OutlinedExcelIcon } from "react-icons/ri";
 import { MdOutlineLanguage as OutlinedLanguageIcon } from "react-icons/md";
 import { RiBookLine as OutlinedBookIcon } from "react-icons/ri";
 import Bannar from "./Bannar";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
     return (
-        <section>
+        <nav>
             <main className="w-screen flex justify-between fixed bg-[#5F7161] h-14 items-center text-white px-10">
-                <Tooltip label="Home" bg="green.400" hasArrow>
+                <Link to="/">
                     <div className="flex p-2 items-center hover:bg-[#6D8B74] rounded-full cursor-pointer hover:text-black">
                         <Icon
                             className="pr-1"
@@ -23,8 +24,8 @@ const Navbar = () => {
                         />
                         <p className="">ExcelMan</p>
                     </div>
-                </Tooltip>
-                <Tooltip label="Lessons" bg="green.400" hasArrow>
+                </Link>
+                <Link to="/lessons">
                     <div>
                         <Icon
                             className="hover:text-black hover:bg-[#6D8B74] rounded-full p-2 cursor-pointer"
@@ -34,8 +35,8 @@ const Navbar = () => {
                             as={OutlinedBookIcon}
                         />
                     </div>
-                </Tooltip>
-                <Tooltip label="Ask a question" bg="green.400" hasArrow>
+                </Link>
+                <Link to="/form">
                     <div>
                         <Icon
                             className="hover:text-black hover:bg-[#6D8B74] rounded-full p-2 cursor-pointer"
@@ -45,39 +46,36 @@ const Navbar = () => {
                             as={OutlinedAddIcon}
                         />
                     </div>
-                </Tooltip>
-                
-                <p className="hover:text-black hover:bg-[#6D8B74] rounded-full p-2 cursor-pointer">
-                    Sign In
-                </p>
+                </Link>
+                <Link to="/auth">
+                    <p className="hover:text-black hover:bg-[#6D8B74] rounded-full p-2 cursor-pointer">
+                        Sign In
+                    </p>
+                </Link>
 
                 <div className="flex">
-                    <Tooltip label="Change Language" bg="green.400" hasArrow>
-                        <div>
-                            <Icon
-                                className="hover:text-black hover:bg-[#6D8B74] rounded-full p-2 cursor-pointer"
-                                color="white"
-                                w={9}
-                                h={9}
-                                as={OutlinedLanguageIcon}
-                            />
-                        </div>
-                    </Tooltip>
-                    <Tooltip label="Dark Theme" bg="green.400" hasArrow>
-                        <div>
-                            <Icon
-                                className="hover:text-black hover:bg-[#6D8B74] rounded-full p-2 cursor-pointer"
-                                color="white"
-                                w={9}
-                                h={9}
-                                as={OutlinedMoonIcon}
-                            />
-                        </div>
-                    </Tooltip>
+                    <div>
+                        <Icon
+                            className="hover:text-black hover:bg-[#6D8B74] rounded-full p-2 cursor-pointer"
+                            color="white"
+                            w={9}
+                            h={9}
+                            as={OutlinedLanguageIcon}
+                        />
+                    </div>
+
+                    <div>
+                        <Icon
+                            className="hover:text-black hover:bg-[#6D8B74] rounded-full p-2 cursor-pointer"
+                            color="white"
+                            w={9}
+                            h={9}
+                            as={OutlinedMoonIcon}
+                        />
+                    </div>
                 </div>
             </main>
-            <Bannar />
-        </section>
+        </nav>
     );
 };
 export default Navbar;
