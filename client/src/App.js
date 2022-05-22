@@ -2,7 +2,6 @@ import {
     BrowserRouter as Router,
     Routes,
     Route,
-    Link,
     Navigate,
 } from "react-router-dom";
 
@@ -11,11 +10,12 @@ import Home from "./components/Home";
 import Auth from "./components/Auth/Auth";
 import Form from "./components/Form/Form";
 import Lessons from "./components/Lessons/Lessons";
-import { Box } from "@chakra-ui/react";
+import { Box, useColorModeValue } from "@chakra-ui/react";
 
 function App() {
+    const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
     return (
-        <Box bg="background" width="full" className="scrollbar-hide">
+        <Box bg={bgColor} width="full" className="scrollbar-hide">
             <Router>
                 <Navbar />
                 <Routes>

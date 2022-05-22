@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, Flex, Icon } from "@chakra-ui/react";
+import {
+    Box,
+    Flex,
+    Icon,
+    Text,
+    useColorMode,
+    useColorModeValue,
+} from "@chakra-ui/react";
 import {
     IoMdMoon as OutlinedMoonIcon,
     IoMdAddCircleOutline as OutlinedAddIcon,
@@ -10,10 +17,15 @@ import { RiBookLine as OutlinedBookIcon } from "react-icons/ri";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+    const { toggleColorMode } = useColorMode();
+    const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
+    
     return (
-        <nav>
+        <Box as="nav">
             <Flex
-                bg="primary"
+                bg={
+                    bgColor === "backgroundLight" ? "primary" : "backgroundDark"
+                }
                 width="full"
                 justify="space-between"
                 alignItems="center"
@@ -23,67 +35,98 @@ const Navbar = () => {
                 textColor="white"
             >
                 <Link to="/">
-                    <div className="flex p-2 items-center hover:bg-[#6D8B74] rounded-full cursor-pointer hover:text-black">
+                    <Flex
+                        alignItems="center"
+                        _hover={{ bg: "white", color: "black" }}
+                        padding="2"
+                        borderRadius="full"
+                        cursor="pointer"
+                    >
                         <Icon
-                            className="pr-1"
+                            paddingRight="1"
                             w={5}
                             h={5}
                             as={OutlinedExcelIcon}
                         />
-                        <p className="">ExcelMan</p>
-                    </div>
+                        <Text fontWeight="semibold">ExcelMan</Text>
+                    </Flex>
                 </Link>
                 <Link to="/lessons">
-                    <div>
+                    <Box>
                         <Icon
-                            className="hover:text-black hover:bg-[#6D8B74] rounded-full p-2 cursor-pointer"
+                            _hover={{ bg: "white", color: "black" }}
+                            padding="2"
+                            borderRadius="full"
+                            cursor="pointer"
                             color="white"
                             w={9}
                             h={9}
                             as={OutlinedBookIcon}
                         />
-                    </div>
+                    </Box>
                 </Link>
                 <Link to="/form">
-                    <div>
+                    <Box>
                         <Icon
-                            className="hover:text-black hover:bg-[#6D8B74] rounded-full p-2 cursor-pointer"
+                            _hover={{ bg: "white", color: "black" }}
+                            padding="2"
+                            borderRadius="full"
+                            cursor="pointer"
                             color="white"
                             w={9}
                             h={9}
                             as={OutlinedAddIcon}
                         />
-                    </div>
+                    </Box>
                 </Link>
                 <Link to="/auth">
-                    <p className="hover:text-black hover:bg-[#6D8B74] rounded-full p-2 cursor-pointer">
+                    <Text
+                        fontWeight="semibold"
+                        _hover={{ bg: "white", color: "black" }}
+                        padding="2"
+                        borderRadius="full"
+                        cursor="pointer"
+                    >
                         Sign In
-                    </p>
+                    </Text>
                 </Link>
 
-                <div className="flex">
-                    <div>
+                <Flex>
+                    <Box>
                         <Icon
-                            className="hover:text-black hover:bg-[#6D8B74] rounded-full p-2 cursor-pointer"
+                            fontWeight="semibold"
+                            _hover={{ bg: "white", color: "black" }}
+                            padding="2"
+                            borderRadius="full"
+                            cursor="pointer"
                             color="white"
                             w={9}
                             h={9}
                             as={OutlinedLanguageIcon}
                         />
-                    </div>
+                    </Box>
 
-                    <div>
+                    <Box>
                         <Icon
-                            className="hover:text-black hover:bg-[#6D8B74] rounded-full p-2 cursor-pointer"
+                            fontWeight="semibold"
+                            _hover={{ bg: "white", color: "black" }}
+                            padding="2"
+                            borderRadius="full"
+                            cursor="pointer"
                             color="white"
                             w={9}
                             h={9}
                             as={OutlinedMoonIcon}
+                            onClick={toggleColorMode}
+                            transform="ease-out"
+                            transition
+                            transitionDelay="150ms"
+                            // className="transition ease-in-out delay-150"
                         />
-                    </div>
-                </div>
+                    </Box>
+                </Flex>
             </Flex>
-        </nav>
+        </Box>
     );
 };
 export default Navbar;

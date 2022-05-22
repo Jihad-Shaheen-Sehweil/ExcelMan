@@ -8,7 +8,8 @@ export const myNewTheme = extendTheme({
         highlight: "#767FAE",
         warning: "#FFDD82",
         danger: "#9F5856",
-        background: "#F2F2F2",
+        backgroundLight: "#F2F2F2",
+        backgroundDark: "#191A19",
     },
     components: {
         Button,

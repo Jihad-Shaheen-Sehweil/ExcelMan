@@ -5,6 +5,7 @@ import Bannar from "./Header/Bannar";
 import Questions from "./Question/Questions";
 
 const Home = () => {
+
     return (
         <Box>
             <Bannar />
