@@ -6,15 +6,16 @@ import {
     Navigate,
 } from "react-router-dom";
 
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Header/Navbar";
 import Home from "./components/Home";
-import Auth from "./components/Auth";
-import Form from "./components/Form";
-import Lessons from "./components/Lessons";
+import Auth from "./components/Auth/Auth";
+import Form from "./components/Form/Form";
+import Lessons from "./components/Lessons/Lessons";
+import { Box } from "@chakra-ui/react";
 
 function App() {
     return (
-        <main className="w-screen bg-[#F2F2F2] scrollbar-hide">
+        <Box bg="background" width="full" className="scrollbar-hide">
             <Router>
                 <Navbar />
                 <Routes>
@@ -29,7 +30,7 @@ function App() {
                     <Route path="/auth" element={<Auth />} />
                 </Routes>
             </Router>
-        </main>
+        </Box>
     );
 }
 

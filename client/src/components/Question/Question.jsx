@@ -1,8 +1,8 @@
 import React from "react";
-import Comments from "./Comments";
-import Like from "./Like";
+import Comments from "./Featues/Comments";
+import Like from "./Featues/Like";
 
-import UserInfo from "./UserInfo";
+import UserInfo from "./Featues/UserInfo";
 
 const Question = () => {
     return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon } from "@chakra-ui/react";
+import { Box, Flex, Icon } from "@chakra-ui/react";
 import {
     IoMdMoon as OutlinedMoonIcon,
     IoMdAddCircleOutline as OutlinedAddIcon,
@@ -7,13 +7,21 @@ import {
 import { RiFileExcel2Fill as OutlinedExcelIcon } from "react-icons/ri";
 import { MdOutlineLanguage as OutlinedLanguageIcon } from "react-icons/md";
 import { RiBookLine as OutlinedBookIcon } from "react-icons/ri";
-import Bannar from "./Bannar";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
     return (
         <nav>
-            <main className="w-screen flex justify-between fixed bg-[#5F7161] h-14 items-center text-white px-10">
+            <Flex
+                bg="primary"
+                width="full"
+                justify="space-between"
+                alignItems="center"
+                position="fixed"
+                height="3.5rem"
+                paddingX="10"
+                textColor="white"
+            >
                 <Link to="/">
                     <div className="flex p-2 items-center hover:bg-[#6D8B74] rounded-full cursor-pointer hover:text-black">
                         <Icon
@@ -74,7 +82,7 @@ const Navbar = () => {
                         />
                     </div>
                 </div>
-            </main>
+            </Flex>
         </nav>
     );
 };
