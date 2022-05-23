@@ -10,8 +10,11 @@ export const ButtonStyles = {
             },
         },
         secondary: {
-            bg: "secondary",
+            bg: "primary",
             color: "white",
+            _hover: {
+                bg: "#79998d",
+            },
         },
     },
     defaultProps: {},

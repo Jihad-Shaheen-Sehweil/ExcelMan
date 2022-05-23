@@ -8,7 +8,7 @@ const InputField = ({ half, name, handleChange, label, autoFocus, type }) => {
     return (
         <div className=" rounded-md py-2">
             {type === "password" || type === "confirmPassword" ? (
-                <InputGroup bg="white">
+                <InputGroup borderRadius="md" bg="white">
                     <Input
                         name={name}
                         onChange={handleChange}

@@ -5,13 +5,12 @@ import Bannar from "./Header/Bannar";
 import Questions from "./Question/Questions";
 
 const Home = () => {
-
     return (
         <Box>
             <Bannar />
-            <div className="px-10 pd-10 ">
+            <Box paddingX="10" paddingBottom="10">
                 <Questions />
-            </div>
+            </Box>
         </Box>
     );
 };
