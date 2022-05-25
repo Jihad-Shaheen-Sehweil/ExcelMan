@@ -1,4 +1,4 @@
-import { Button, Container, Text } from "@chakra-ui/react";
+import { Button, Container, Heading } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BiLockAlt } from "react-icons/bi";
 import { useDispatch } from "react-redux";
@@ -53,7 +53,7 @@ const Auth = () => {
                 className="flex flex-col items-center"
                 onSubmit={handleSubmit}
             >
-                <Text paddingY="3">{isSignup ? "Sign Up" : "Sign In"}</Text>
+            <Heading as="h3" size="md" paddingY="3">{isSignup ? "Sign Up" : "Sign In"}</Heading>
                 <InputField
                     half
                     name="firstName"

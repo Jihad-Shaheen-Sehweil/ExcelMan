@@ -12,12 +12,11 @@ const Question = () => {
         <Box
             bg={bgColor === "backgroundLight" ? "white" : "whiteAlpha.200"}
             as="article"
-            // border="1px"
-            // borderColor="gray.300"
-            // marginY="3"
-            // width="50%"
-            // padding="3"
-            className="border border-gray-300 my-3 w-6/12 p-3"
+            shadow="xs"
+            borderRadius="3xl"
+            marginY="3"
+            width="60%"
+            padding="3"
         >
             <UserInfo />
             <Text fontWeight="medium" className="border-b">

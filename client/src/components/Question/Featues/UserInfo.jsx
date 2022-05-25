@@ -9,12 +9,14 @@ import {
     MenuItem,
     MenuList,
     Text,
+    useColorModeValue,
 } from "@chakra-ui/react";
 import { BsDot as DotIcon, BsThreeDots as optionIcon } from "react-icons/bs";
 import { BiEdit as EditIcon } from "react-icons/bi";
 import { AiOutlineDelete as DeleteIcon } from "react-icons/ai";
 
 const UserInfo = () => {
+    const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
     return (
         <Flex
             as="section"
@@ -39,7 +41,13 @@ const UserInfo = () => {
                     icon={<Icon w={5} h={5} as={optionIcon} />}
                     borderRadius="full"
                 />
-                <MenuList>
+                <MenuList
+                    bg={
+                        bgColor === "backgroundLight"
+                            ? "white"
+                            : "whiteAlpha.200"
+                    }
+                >
                     <MenuItem icon={<Icon w={5} h={5} as={EditIcon} />}>
                         Edit the question
                     </MenuItem>
