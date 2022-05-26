@@ -60,6 +60,7 @@ export const createQuestion = (question) => async (dispatch) => {
         dispatch({ type: START_LOADING });
 
         const { data } = await api.createQuestion(question);
+
         const action = { type: CREATE, payload: data };
         dispatch(action);
 
@@ -68,11 +69,34 @@ export const createQuestion = (question) => async (dispatch) => {
         console.log(error);
     }
 };
+
 export const updateQuestion = (id, question) => async (dispatch) => {
     try {
         const { data } = await api.updateQuestion(id, question);
 
         const action = { type: UPDATE, payload: data };
+        dispatch(action);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const deleteQuestion = (id) => async (dispatch) => {
+    try {
+        await api.deleteQuestion(id);
+
+        const action = { type: DELETE, payload: id };
+        dispatch(action);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const LikeQuestion = (id) => async (dispatch) => {
+    try {
+        const { data } = await api.likeQuestion(id);
+        const action = { type: LIKE, payload: data };
+
         dispatch(action);
     } catch (error) {
         console.log(error);

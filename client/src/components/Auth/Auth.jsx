@@ -53,20 +53,26 @@ const Auth = () => {
                 className="flex flex-col items-center"
                 onSubmit={handleSubmit}
             >
-            <Heading as="h3" size="md" paddingY="3">{isSignup ? "Sign Up" : "Sign In"}</Heading>
-                <InputField
-                    half
-                    name="firstName"
-                    handleChange={handleChange}
-                    label="First Name"
-                    autoFocus
-                />
-                <InputField
-                    half
-                    name="lastName"
-                    handleChange={handleChange}
-                    label="Last Name"
-                />
+                <Heading as="h3" size="md" paddingY="3">
+                    {isSignup ? "Sign Up" : "Sign In"}
+                </Heading>
+                {isSignup && (
+                    <InputField
+                        half
+                        name="firstName"
+                        handleChange={handleChange}
+                        label="First Name"
+                        autoFocus
+                    />
+                )}
+                {isSignup && (
+                    <InputField
+                        half
+                        name="lastName"
+                        handleChange={handleChange}
+                        label="Last Name"
+                    />
+                )}
                 <InputField
                     name="email"
                     handleChange={handleChange}

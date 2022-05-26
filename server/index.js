@@ -4,6 +4,9 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 
+import questionRoutes from "./routes/questionRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+
 const app = express();
 dotenv.config();
 
@@ -11,7 +14,8 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
-// routes app.use("route string", imported from routes function)
+app.use("/questions", questionRoutes);
+app.use("/user", authRoutes);
 
 const PORT = process.env.PORT || 5000;
 const CONNECTION_URL = process.env.CONNECTION_URL;

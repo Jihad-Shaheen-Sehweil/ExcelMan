@@ -1,6 +1,6 @@
 import {
     FETCH_ALL,
-    FETCH_POST,
+    FETCH_QUESTION,
     FETCH_BY_SEARCH,
     CREATE,
     UPDATE,
@@ -27,7 +27,7 @@ export default (state = { isLoading: true, questions: [] }, action) => {
                 numberOfPages: action.payload.numberOfPages,
             };
 
-        case FETCH_POST:
+        case FETCH_QUESTION:
             return {
                 ...state,
                 post: action.payload,

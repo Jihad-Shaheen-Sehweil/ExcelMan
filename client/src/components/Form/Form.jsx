@@ -5,7 +5,6 @@ import {
     Button,
     Container,
     Flex,
-    FormControl,
     Heading,
     Input,
     Textarea,
@@ -60,15 +59,11 @@ const Form = ({ currentId, setCurrentId }) => {
         });
     };
     return (
-        <Container
-            className="h-screen"
-            paddingTop="24"
-            textAlign="center"
-        >
+        <Container className="h-screen" paddingTop="24" textAlign="center">
             <Heading as="h3" size="md" paddingBottom="6">
                 {currentId ? "Editing" : "Creating"} a question
             </Heading>
-            <FormControl onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <Input
                     placeholder="Title"
                     marginBottom="6"
@@ -125,7 +120,7 @@ const Form = ({ currentId, setCurrentId }) => {
                         Clear
                     </Button>
                 </Flex>
-            </FormControl>
+            </form>
         </Container>
     );
 };
