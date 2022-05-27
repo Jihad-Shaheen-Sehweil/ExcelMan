@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
+    Avatar,
     Box,
     Flex,
     Icon,
+    IconButton,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
     Text,
     useColorMode,
     useColorModeValue,
@@ -11,15 +17,48 @@ import {
     IoMdMoon as OutlinedMoonIcon,
     IoMdAddCircleOutline as OutlinedAddIcon,
 } from "react-icons/io";
-import { RiFileExcel2Fill as OutlinedExcelIcon } from "react-icons/ri";
+import {
+    RiFileExcel2Fill as OutlinedExcelIcon,
+    RiBookLine as OutlinedBookIcon,
+} from "react-icons/ri";
 import { MdOutlineLanguage as OutlinedLanguageIcon } from "react-icons/md";
-import { RiBookLine as OutlinedBookIcon } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { FaUserEdit as EditProfile } from "react-icons/fa";
+import { CgLogOff as LogoutIcon } from "react-icons/cg";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import decode from "jwt-decode";
+
+import { LOGOUT } from "../../redux/constants/actionTypes";
 
 const Navbar = () => {
     const { toggleColorMode } = useColorMode();
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
-    
+    const [user, setUser] = useState(
+        JSON.parse(localStorage.getItem("profile"))
+    );
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        const token = user?.token;
+
+        if (token) {
+            const decodedToken = decode(token);
+
+            if (decodedToken.exp * 1000 < new Date().getTime()) handleLogout();
+        }
+
+        setUser(JSON.parse(localStorage.getItem("profile")));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location, user]);
+
+    const handleLogout = () => {
+        dispatch({ type: LOGOUT });
+        navigate("/");
+        setUser(null);
+    };
+
     return (
         <Box as="nav">
             <Flex
@@ -65,66 +104,174 @@ const Navbar = () => {
                         />
                     </Box>
                 </Link>
-                <Link to="/form">
-                    <Box>
-                        <Icon
-                            _hover={{ bg: "white", color: "black" }}
-                            padding="2"
+                {user && (
+                    <Link to="/form">
+                        <Box>
+                            <Icon
+                                _hover={{ bg: "white", color: "black" }}
+                                padding="2"
+                                borderRadius="full"
+                                cursor="pointer"
+                                color="white"
+                                w={9}
+                                h={9}
+                                as={OutlinedAddIcon}
+                            />
+                        </Box>
+                    </Link>
+                )}
+                {user ? (
+                    <Menu>
+                        <MenuButton
+                            bg="primary"
+                            as={IconButton}
                             borderRadius="full"
-                            cursor="pointer"
-                            color="white"
-                            w={9}
-                            h={9}
-                            as={OutlinedAddIcon}
+                            icon={<Avatar size="sm" />}
                         />
-                    </Box>
-                </Link>
-                <Link to="/auth">
-                    <Text
-                        fontWeight="semibold"
-                        _hover={{ bg: "white", color: "black" }}
-                        padding="2"
-                        borderRadius="full"
-                        cursor="pointer"
-                    >
-                        Sign In
-                    </Text>
-                </Link>
-
-                <Flex>
-                    <Box>
-                        <Icon
+                        <MenuList
+                            bg={
+                                bgColor === "backgroundLight"
+                                    ? "white"
+                                    : "backgroundDark"
+                            }
+                            color={
+                                bgColor === "backgroundLight"
+                                    ? "black"
+                                    : "white"
+                            }
+                        >
+                            <MenuItem onClick={handleLogout}>
+                                <Flex alignItems="center">
+                                    <Icon
+                                        as={LogoutIcon}
+                                        fontWeight="semibold"
+                                        padding="2"
+                                        borderRadius="full"
+                                        cursor="pointer"
+                                        color={
+                                            bgColor === "backgroundLight"
+                                                ? "black"
+                                                : "white"
+                                        }
+                                        w={9}
+                                        h={9}
+                                    />
+                                    <Text>Log Out</Text>
+                                </Flex>
+                            </MenuItem>
+                            <MenuItem>
+                                <Link to="/profile">
+                                    <Flex alignItems="center">
+                                        <Icon
+                                            as={EditProfile}
+                                            fontWeight="semibold"
+                                            padding="2"
+                                            cursor="pointer"
+                                            color={
+                                                bgColor === "backgroundLight"
+                                                    ? "black"
+                                                    : "white"
+                                            }
+                                            w={9}
+                                            h={9}
+                                        />
+                                        <Text>Profile</Text>
+                                    </Flex>
+                                </Link>
+                            </MenuItem>
+                            <MenuItem>
+                                <Flex alignItems="center">
+                                    <Icon
+                                        fontWeight="semibold"
+                                        padding="2"
+                                        borderRadius="full"
+                                        cursor="pointer"
+                                        color={
+                                            bgColor === "backgroundLight"
+                                                ? "black"
+                                                : "white"
+                                        }
+                                        w={9}
+                                        h={9}
+                                        as={OutlinedLanguageIcon}
+                                    />
+                                    <Text>Change Language</Text>
+                                </Flex>
+                            </MenuItem>
+                            <MenuItem onClick={toggleColorMode}>
+                                <Flex alignItems="center">
+                                    <Icon
+                                        fontWeight="semibold"
+                                        padding="2"
+                                        borderRadius="full"
+                                        cursor="pointer"
+                                        color={
+                                            bgColor === "backgroundLight"
+                                                ? "black"
+                                                : "white"
+                                        }
+                                        w={9}
+                                        h={9}
+                                        as={OutlinedMoonIcon}
+                                        transform="ease-out"
+                                        transition
+                                        transitionDelay="150ms"
+                                        // className="transition ease-in-out delay-150"
+                                    />
+                                    <Text>Change Theme</Text>
+                                </Flex>
+                            </MenuItem>
+                        </MenuList>
+                    </Menu>
+                ) : (
+                    <Link to="/auth">
+                        <Text
                             fontWeight="semibold"
                             _hover={{ bg: "white", color: "black" }}
                             padding="2"
                             borderRadius="full"
                             cursor="pointer"
-                            color="white"
-                            w={9}
-                            h={9}
-                            as={OutlinedLanguageIcon}
-                        />
-                    </Box>
+                        >
+                            Sign In
+                        </Text>
+                    </Link>
+                )}
+                {!user && (
+                    <Flex>
+                        <Box>
+                            <Icon
+                                fontWeight="semibold"
+                                _hover={{ bg: "white", color: "black" }}
+                                padding="2"
+                                borderRadius="full"
+                                cursor="pointer"
+                                color="white"
+                                w={9}
+                                h={9}
+                                as={OutlinedLanguageIcon}
+                            />
+                        </Box>
 
-                    <Box>
-                        <Icon
-                            fontWeight="semibold"
-                            _hover={{ bg: "white", color: "black" }}
-                            padding="2"
-                            borderRadius="full"
-                            cursor="pointer"
-                            color="white"
-                            w={9}
-                            h={9}
-                            as={OutlinedMoonIcon}
-                            onClick={toggleColorMode}
-                            transform="ease-out"
-                            transition
-                            transitionDelay="150ms"
-                            // className="transition ease-in-out delay-150"
-                        />
-                    </Box>
-                </Flex>
+                        <Box>
+                            <Icon
+                                fontWeight="semibold"
+                                _hover={{ bg: "white", color: "black" }}
+                                padding="2"
+                                borderRadius="full"
+                                cursor="pointer"
+                                color="white"
+                                w={9}
+                                h={9}
+                                as={OutlinedMoonIcon}
+                                onClick={toggleColorMode}
+                                transform="ease-out"
+                                transition
+                                transitionDelay="150ms"
+                                // className="transition ease-in-out delay-150"
+                            />
+                        </Box>
+                    </Flex>
+                )}
             </Flex>
         </Box>
     );

@@ -13,7 +13,7 @@ import {
 
 export const getQuestions = (page) => async (dispatch) => {
     try {
-        dispatch(START_LOADING);
+        dispatch({ type: START_LOADING });
 
         const { data } = await api.fetchQuestions(page);
         const action = { type: FETCH_ALL, payload: data };
@@ -27,7 +27,7 @@ export const getQuestions = (page) => async (dispatch) => {
 
 export const getQuestion = (id) => async (dispatch) => {
     try {
-        dispatch(START_LOADING);
+        dispatch({ type: START_LOADING });
 
         const { data } = await api.fetchQuestions(id);
         const action = { type: FETCH_QUESTION, payload: data };

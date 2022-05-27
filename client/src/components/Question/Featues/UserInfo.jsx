@@ -15,8 +15,9 @@ import { BsDot as DotIcon, BsThreeDots as optionIcon } from "react-icons/bs";
 import { BiEdit as EditIcon } from "react-icons/bi";
 import { AiOutlineDelete as DeleteIcon } from "react-icons/ai";
 
-const UserInfo = () => {
+const UserInfo = ({ user, question }) => {
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
+
     return (
         <Flex
             as="section"
@@ -28,34 +29,36 @@ const UserInfo = () => {
             <Flex alignItems="center">
                 <Avatar />
                 <Text marginLeft="2" fontWeight="bold">
-                    Username
+                    {user?.userName}
                 </Text>
                 <Icon w={5} h={5} as={DotIcon} />
                 <Text fontWeight="medium" fontSize="xs">
-                    18 min ago
+                    {question?.createdAt}
                 </Text>
             </Flex>
-            <Menu>
-                <MenuButton
-                    as={IconButton}
-                    icon={<Icon w={5} h={5} as={optionIcon} />}
-                    borderRadius="full"
-                />
-                <MenuList
-                    bg={
-                        bgColor === "backgroundLight"
-                            ? "white"
-                            : "whiteAlpha.200"
-                    }
-                >
-                    <MenuItem icon={<Icon w={5} h={5} as={EditIcon} />}>
-                        Edit the question
-                    </MenuItem>
-                    <MenuItem icon={<Icon w={5} h={5} as={DeleteIcon} />}>
-                        Delete the question
-                    </MenuItem>
-                </MenuList>
-            </Menu>
+            {user && (
+                <Menu>
+                    <MenuButton
+                        as={IconButton}
+                        icon={<Icon w={5} h={5} as={optionIcon} />}
+                        borderRadius="full"
+                    />
+                    <MenuList
+                        bg={
+                            bgColor === "backgroundLight"
+                                ? "white"
+                                : "whiteAlpha.200"
+                        }
+                    >
+                        <MenuItem icon={<Icon w={5} h={5} as={EditIcon} />}>
+                            Edit the question
+                        </MenuItem>
+                        <MenuItem icon={<Icon w={5} h={5} as={DeleteIcon} />}>
+                            Delete the question
+                        </MenuItem>
+                    </MenuList>
+                </Menu>
+            )}
         </Flex>
     );
 };

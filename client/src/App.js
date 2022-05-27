@@ -12,13 +12,19 @@ import Home from "./components/Home";
 import Auth from "./components/Auth/Auth";
 import Form from "./components/Form/Form";
 import Lessons from "./components/Lessons/Lessons";
+import Profile from "./components/Header/Profile";
 
 function App() {
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
     const [currentId, setCurrentId] = useState(null);
 
     return (
-        <Box bg={bgColor} width="full" className="scrollbar-hide">
+        <Box
+            bg={bgColor}
+            width="full"
+            className="scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100"
+            // fix scrollbar
+        >
             <Router>
                 <Navbar />
                 <Routes>
@@ -47,6 +53,7 @@ function App() {
                         }
                     />
                     <Route path="/auth" element={<Auth />} />
+                    <Route path="/profile" element={<Profile />} />
                 </Routes>
             </Router>
         </Box>

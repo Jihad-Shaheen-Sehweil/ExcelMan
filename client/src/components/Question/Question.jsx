@@ -3,11 +3,12 @@ import React from "react";
 
 import Comments from "./Featues/Comments";
 import Like from "./Featues/Like";
-
 import UserInfo from "./Featues/UserInfo";
 
-const Question = () => {
+const Question = ({ question, setCurrentId }) => {
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
+    const user = JSON.parse(localStorage.getItem("profile"));
+
     return (
         <Box
             bg={bgColor === "backgroundLight" ? "white" : "whiteAlpha.200"}
@@ -16,17 +17,20 @@ const Question = () => {
             borderRadius="3xl"
             marginY="3"
             width="60%"
+            height="180px"
             padding="3"
         >
-            <UserInfo />
+            <UserInfo user={user} question={question} />
             <Text fontWeight="medium" className="border-b">
-                Question
+                {question?.title}
             </Text>
             <Text paddingTop="2">The Answer</Text>
-            <Flex alignItems="center" paddingTop="5">
-                <Like />
-                <Comments />
-            </Flex>
+            {user && (
+                <Flex alignItems="center" paddingTop="5">
+                    <Like />
+                    <Comments />
+                </Flex>
+            )}
         </Box>
     );
 };

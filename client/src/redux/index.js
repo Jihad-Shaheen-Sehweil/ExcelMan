@@ -8,6 +8,7 @@ const store = configureStore({
         auth,
         questions,
     },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware()
 });
 
 export default store;
