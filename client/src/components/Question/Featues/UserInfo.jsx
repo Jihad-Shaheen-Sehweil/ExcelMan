@@ -14,9 +14,21 @@ import {
 import { BsDot as DotIcon, BsThreeDots as optionIcon } from "react-icons/bs";
 import { BiEdit as EditIcon } from "react-icons/bi";
 import { AiOutlineDelete as DeleteIcon } from "react-icons/ai";
+import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
-const UserInfo = ({ user, question }) => {
+const UserInfo = ({ user, question, setCurrentId }) => {
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
+    const navigate = useNavigate();
+    console.log(user);
+
+    const handleProfileClick = () => {
+        navigate(`/profile/${user?.result._id}`);
+    };
+
+    const handleEdit = () => {
+        navigate(`/form/questions/${question?._id}`);
+    };
 
     return (
         <Flex
@@ -28,20 +40,29 @@ const UserInfo = ({ user, question }) => {
         >
             <Flex alignItems="center">
                 <Avatar />
-                <Text marginLeft="2" fontWeight="bold">
-                    {user?.userName}
+                <Text
+                    marginLeft="2"
+                    fontWeight="bold"
+                    _hover={{ "text-decoration-line": "underline" }}
+                    cursor="pointer"
+                    onClick={handleProfileClick}
+                >
+                    {user?.result.name}
                 </Text>
                 <Icon w={5} h={5} as={DotIcon} />
                 <Text fontWeight="medium" fontSize="xs">
-                    {question?.createdAt}
+                    {moment(question?.createdAt).fromNow()}
                 </Text>
             </Flex>
-            {user && (
+            {user?.result?._id === question?.creator && (
                 <Menu>
                     <MenuButton
                         as={IconButton}
                         icon={<Icon w={5} h={5} as={optionIcon} />}
                         borderRadius="full"
+                        onClick={() => {
+                            setCurrentId(question._id);
+                        }}
                     />
                     <MenuList
                         bg={
@@ -49,6 +70,7 @@ const UserInfo = ({ user, question }) => {
                                 ? "white"
                                 : "whiteAlpha.200"
                         }
+                        onClick={handleEdit}
                     >
                         <MenuItem icon={<Icon w={5} h={5} as={EditIcon} />}>
                             Edit the question

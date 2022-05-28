@@ -13,6 +13,7 @@ import Auth from "./components/Auth/Auth";
 import Form from "./components/Form/Form";
 import Lessons from "./components/Lessons/Lessons";
 import Profile from "./components/Header/Profile";
+import QuestionDetailes from "./components/Question/QuestionDetailes";
 
 function App() {
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
@@ -54,6 +55,7 @@ function App() {
                     />
                     <Route path="/auth" element={<Auth />} />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/questions/:id" element={<QuestionDetailes />} />
                 </Routes>
             </Router>
         </Box>
