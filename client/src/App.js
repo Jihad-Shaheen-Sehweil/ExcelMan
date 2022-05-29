@@ -55,7 +55,10 @@ function App() {
                     />
                     <Route path="/auth" element={<Auth />} />
                     <Route path="/profile" element={<Profile />} />
-                    <Route path="/questions/:id" element={<QuestionDetailes />} />
+                    <Route
+                        path="/questions/:id"
+                        element={<QuestionDetailes />}
+                    />
                 </Routes>
             </Router>
         </Box>

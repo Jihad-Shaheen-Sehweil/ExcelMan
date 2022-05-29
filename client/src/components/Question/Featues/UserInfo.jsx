@@ -17,10 +17,10 @@ import { AiOutlineDelete as DeleteIcon } from "react-icons/ai";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
-const UserInfo = ({ user, question, setCurrentId }) => {
+const UserInfo = ({ question, setCurrentId }) => {
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
     const navigate = useNavigate();
-    console.log(user);
+    const user = JSON.parse(localStorage.getItem("profile"));
 
     const handleProfileClick = () => {
         navigate(`/profile/${user?.result._id}`);
@@ -43,11 +43,11 @@ const UserInfo = ({ user, question, setCurrentId }) => {
                 <Text
                     marginLeft="2"
                     fontWeight="bold"
-                    _hover={{ "text-decoration-line": "underline" }}
+                    _hover={{ textDecorationLine: "underline" }}
                     cursor="pointer"
                     onClick={handleProfileClick}
                 >
-                    {user?.result.name}
+                    {question?.name}
                 </Text>
                 <Icon w={5} h={5} as={DotIcon} />
                 <Text fontWeight="medium" fontSize="xs">

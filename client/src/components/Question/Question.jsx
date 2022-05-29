@@ -27,7 +27,6 @@ const Question = ({ question, setCurrentId }) => {
             padding="3"
         >
             <UserInfo
-                user={user}
                 question={question}
                 setCurrentId={setCurrentId}
             />
@@ -36,7 +35,7 @@ const Question = ({ question, setCurrentId }) => {
                 className="border-b"
                 onClick={handleQusetionDetailes}
                 cursor="pointer"
-                _hover={{ "text-decoration-line": "underline" }}
+                _hover={{ textDecorationLine: "underline" }}
                 display="inline-block"
             >
                 {question?.title}
