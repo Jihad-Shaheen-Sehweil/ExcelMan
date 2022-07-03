@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Avatar,
     Flex,
@@ -14,20 +14,31 @@ import {
 import { BsDot as DotIcon, BsThreeDots as optionIcon } from "react-icons/bs";
 import { BiEdit as EditIcon } from "react-icons/bi";
 import { AiOutlineDelete as DeleteIcon } from "react-icons/ai";
-import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-const UserInfo = ({ user, question, setCurrentId }) => {
+import { deleteQuestion } from "../../../app/sliceReducers/questionsSlice";
+import TimeAgo from "./TimeAgo";
+
+const UserInfo = ({ question, user }) => {
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
+    const { id, questionCreatorId, questionCreatorUsername, date } = question;
+    const { userId, usernameImage } = user;
     const navigate = useNavigate();
-    console.log(user);
+    const dispatch = useDispatch();
+
+    const [questionId, setQuestionId] = useState(null);
 
     const handleProfileClick = () => {
-        navigate(`/profile/${user?.result._id}`);
+        navigate(`/profile/${userId}`);
     };
 
     const handleEdit = () => {
-        navigate(`/form/questions/${question?._id}`);
+        navigate(`/form/questions/${id}`);
+    };
+
+    const handleDelete = () => {
+        dispatch(deleteQuestion(questionId));
     };
 
     return (
@@ -39,29 +50,29 @@ const UserInfo = ({ user, question, setCurrentId }) => {
             className="items-center mr-5"
         >
             <Flex alignItems="center">
-                <Avatar />
+                <Avatar src={usernameImage} />
                 <Text
                     marginLeft="2"
                     fontWeight="bold"
-                    _hover={{ "text-decoration-line": "underline" }}
+                    _hover={{ textDecorationLine: "underline" }}
                     cursor="pointer"
                     onClick={handleProfileClick}
                 >
-                    {user?.result.name}
+                    {questionCreatorUsername}
                 </Text>
                 <Icon w={5} h={5} as={DotIcon} />
                 <Text fontWeight="medium" fontSize="xs">
-                    {moment(question?.createdAt).fromNow()}
+                    <TimeAgo timeStamp={date} />
                 </Text>
             </Flex>
-            {user?.result?._id === question?.creator && (
+            {userId === questionCreatorId && (
                 <Menu>
                     <MenuButton
                         as={IconButton}
                         icon={<Icon w={5} h={5} as={optionIcon} />}
                         borderRadius="full"
                         onClick={() => {
-                            setCurrentId(question._id);
+                            setQuestionId(question.id);
                         }}
                     />
                     <MenuList
@@ -70,12 +81,17 @@ const UserInfo = ({ user, question, setCurrentId }) => {
                                 ? "white"
                                 : "whiteAlpha.200"
                         }
-                        onClick={handleEdit}
                     >
-                        <MenuItem icon={<Icon w={5} h={5} as={EditIcon} />}>
+                        <MenuItem
+                            icon={<Icon w={5} h={5} as={EditIcon} />}
+                            onClick={handleEdit}
+                        >
                             Edit the question
                         </MenuItem>
-                        <MenuItem icon={<Icon w={5} h={5} as={DeleteIcon} />}>
+                        <MenuItem
+                            icon={<Icon w={5} h={5} as={DeleteIcon} />}
+                            onClick={handleDelete}
+                        >
                             Delete the question
                         </MenuItem>
                     </MenuList>

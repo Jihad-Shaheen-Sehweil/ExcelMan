@@ -29,7 +29,7 @@ export const getQuestion = (id) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });
 
-        const { data } = await api.fetchQuestions(id);
+        const { data } = await api.fetchQuestion(id);
         const action = { type: FETCH_QUESTION, payload: data };
         dispatch(action);
 

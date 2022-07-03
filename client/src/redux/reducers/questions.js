@@ -30,7 +30,7 @@ export default (state = { isLoading: true, questions: [] }, action) => {
         case FETCH_QUESTION:
             return {
                 ...state,
-                post: action.payload,
+                question: action.payload,
             };
 
         case FETCH_BY_SEARCH:

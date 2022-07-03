@@ -5,10 +5,13 @@ import { useNavigate } from "react-router-dom";
 import Comments from "./Featues/Comments";
 import Like from "./Featues/Like";
 import UserInfo from "./Featues/UserInfo";
+import user from "../../app/dummyUser";
 
-const Question = ({ question, setCurrentId }) => {
+const Question = ({ question }) => {
+    const { content, answer } = question;
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
-    const user = JSON.parse(localStorage.getItem("profile"));
+    // const user = JSON.parse(localStorage.getItem("profile"));
+
     const navigate = useNavigate();
 
     const handleQusetionDetailes = () => {
@@ -26,28 +29,23 @@ const Question = ({ question, setCurrentId }) => {
             height="180px"
             padding="3"
         >
-            <UserInfo
-                user={user}
-                question={question}
-                setCurrentId={setCurrentId}
-            />
+            <UserInfo user={user} question={question} />
+
             <Text
                 fontWeight="medium"
                 className="border-b"
                 onClick={handleQusetionDetailes}
                 cursor="pointer"
-                _hover={{ "text-decoration-line": "underline" }}
+                _hover={{ textDecorationLine: "underline" }}
                 display="inline-block"
             >
-                {question?.title}
+                {content}
             </Text>
-            <Text paddingTop="2">The Answer</Text>
-            {user && (
-                <Flex alignItems="center" paddingTop="5">
-                    <Like />
-                    <Comments />
-                </Flex>
-            )}
+            {answer && <Text paddingTop="2">{answer}</Text>}
+            <Flex alignItems="center" paddingTop="5">
+                <Like />
+                <Comments />
+            </Flex>
         </Box>
     );
 };
