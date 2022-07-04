@@ -4,7 +4,8 @@ import {
     Route,
     Navigate,
 } from "react-router-dom";
-import { Box, useColorModeValue } from "@chakra-ui/react";
+import { Box, Center, Spinner, useColorModeValue } from "@chakra-ui/react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import Form from "./components/Form/Form";
 import Lessons from "./components/Lessons/Lessons";
@@ -13,9 +14,19 @@ import Navbar from "./components/Layout/Header/Navbar/Navbar";
 import Footer from "./components/Layout/Footer/Footer";
 import QuestionDetailes from "./components/Question/QuestionDetailes";
 import Home from "./components/Layout/Home";
+import Auth from "./components/Auth/Auth";
+import RequireAuth from "./components/Auth/RequireAuth";
 
 function App() {
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
+    const { isLoading } = useAuth0();
+
+    if (isLoading)
+        return (
+            <Center className="min-h-screen">
+                <Spinner width="16" height="16" />
+            </Center>
+        );
 
     return (
         <Box
@@ -34,16 +45,39 @@ function App() {
                     />
                     <Route path="/home" element={<Home />} />
                     <Route path="/lessons" element={<Lessons />} />
-                    <Route path="/form" element={<Form />}>
+                    <Route path="/auth" element={<Auth />} />
+                    <Route
+                        path="/form"
+                        element={
+                            <RequireAuth>
+                                <Form />
+                            </RequireAuth>
+                        }
+                    >
                         <Route
                             path="questions/:questionId"
-                            element={<Form />}
+                            element={
+                                <RequireAuth>
+                                    <Form />
+                                </RequireAuth>
+                            }
                         />
                     </Route>
-                    <Route path="profile/:id" element={<Profile />} />
+                    <Route
+                        path="/profile/:id"
+                        element={
+                            <RequireAuth>
+                                <Profile />
+                            </RequireAuth>
+                        }
+                    />
                     <Route
                         path="/questions/:id"
-                        element={<QuestionDetailes />}
+                        element={
+                            <RequireAuth>
+                                <QuestionDetailes />
+                            </RequireAuth>
+                        }
                     />
                 </Routes>
                 <Footer />
