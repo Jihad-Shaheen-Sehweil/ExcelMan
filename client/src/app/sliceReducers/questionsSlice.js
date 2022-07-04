@@ -34,12 +34,19 @@ export const questionsSlice = createSlice({
             reducer(state, action) {
                 state.push(action.payload);
             },
-            prepare(content, questionCreatorUsername, selectedFile) {
+            prepare(
+                questionCreatorId,
+                questionCreatorUsername,
+                questionCreatorImg,
+                content,
+                selectedFile
+            ) {
                 return {
                     payload: {
-                        id: nanoid(),
-                        questionCreatorId: "0",
+                        questionCreatorId,
                         questionCreatorUsername,
+                        questionCreatorImg,
+                        id: nanoid(),
                         content,
                         answer: "",
                         features: { likes: 0, comments: [] },

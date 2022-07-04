@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { getQuestion } from "../../redux/actions/questions";
+// import { getQuestion } from "../../redux/actions/questions";
 
 const QuestionDetailes = () => {
     const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const QuestionDetailes = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        dispatch(getQuestion(id));
+        // dispatch(getQuestion(id));
     }, [dispatch, id]);
 
     console.log(question);

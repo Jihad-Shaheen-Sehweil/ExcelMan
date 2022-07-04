@@ -12,14 +12,14 @@ import { myNewTheme as theme } from "./styles/theme";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
-const clintId = process.env.REACT_APP_AUTH0_CLIENT_ID;
+const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 
 root.render(
     <React.StrictMode>
         <Provider store={store}>
             <Auth0Provider
                 domain={domain}
-                clintId={clintId}
+                clientId={clientId} 
                 redirectUri={window.location.origin}
             >
                 <ChakraProvider resetCSS theme={theme}>

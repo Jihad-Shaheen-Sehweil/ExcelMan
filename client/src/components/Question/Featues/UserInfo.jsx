@@ -17,28 +17,26 @@ import { AiOutlineDelete as DeleteIcon } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-<<<<<<< HEAD
-const UserInfo = ({ question, setCurrentId }) => {
-=======
 import { deleteQuestion } from "../../../app/sliceReducers/questionsSlice";
 import TimeAgo from "./TimeAgo";
 
 const UserInfo = ({ question, user }) => {
->>>>>>> 0e311083ebae962d6d65b03b55369ca17a6b61a5
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
-    const { id, questionCreatorId, questionCreatorUsername, date } = question;
-    const { userId, usernameImage } = user;
-    const navigate = useNavigate();
-<<<<<<< HEAD
-    const user = JSON.parse(localStorage.getItem("profile"));
-=======
-    const dispatch = useDispatch();
+    const {
+        id,
+        questionCreatorId,
+        questionCreatorUsername,
+        date,
+        questionCreatorImg,
+    } = question;
+    // const { sub: userId } = user;
 
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [questionId, setQuestionId] = useState(null);
->>>>>>> 0e311083ebae962d6d65b03b55369ca17a6b61a5
 
     const handleProfileClick = () => {
-        navigate(`/profile/${userId}`);
+        navigate(`/profile/${user?.sub}`);
     };
 
     const handleEdit = () => {
@@ -58,7 +56,7 @@ const UserInfo = ({ question, user }) => {
             className="items-center mr-5"
         >
             <Flex alignItems="center">
-                <Avatar src={usernameImage} />
+                <Avatar src={questionCreatorImg} />
                 <Text
                     marginLeft="2"
                     fontWeight="bold"
@@ -66,25 +64,21 @@ const UserInfo = ({ question, user }) => {
                     cursor="pointer"
                     onClick={handleProfileClick}
                 >
-<<<<<<< HEAD
-                    {question?.name}
-=======
                     {questionCreatorUsername}
->>>>>>> 0e311083ebae962d6d65b03b55369ca17a6b61a5
                 </Text>
                 <Icon w={5} h={5} as={DotIcon} />
                 <Text fontWeight="medium" fontSize="xs">
                     <TimeAgo timeStamp={date} />
                 </Text>
             </Flex>
-            {userId === questionCreatorId && (
+            {user?.sub === questionCreatorId && (
                 <Menu>
                     <MenuButton
                         as={IconButton}
                         icon={<Icon w={5} h={5} as={optionIcon} />}
                         borderRadius="full"
                         onClick={() => {
-                            setQuestionId(question.id);
+                            setQuestionId(id);
                         }}
                     />
                     <MenuList

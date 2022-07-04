@@ -17,13 +17,14 @@ import {
     editQuestion,
     selectQuestionById,
 } from "../../app/sliceReducers/questionsSlice";
-import user from "../../app/dummyUser";
+import { useAuth0 } from "@auth0/auth0-react";
 
-const Form = ({ currentId, setCurrentId }) => {
+const Form = () => {
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { questionId } = useParams();
+    const { user } = useAuth0();
 
     let question = useSelector((state) =>
         selectQuestionById(state, questionId)
@@ -42,21 +43,22 @@ const Form = ({ currentId, setCurrentId }) => {
         e.preventDefault();
 
         if (questionId) {
-            dispatch(editQuestion({questionData}));
+            dispatch(editQuestion({ questionData }));
         } else {
             dispatch(
                 createQuestion(
+                    user.sub,
+                    user.nickname,
+                    user.picture,
                     questionData.content,
-                    user.username,
                     questionData.selectedFile
                 )
             );
         }
-        navigate("/home");
         handleClear();
+        navigate("/home");
     };
     const handleClear = () => {
-        // setCurrentId(null);
         setQuestionData({
             content: "",
             selectedFile: "",

@@ -1,16 +1,16 @@
 import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import Comments from "./Featues/Comments";
 import Like from "./Featues/Like";
 import UserInfo from "./Featues/UserInfo";
-import user from "../../app/dummyUser";
 
 const Question = ({ question }) => {
     const { content, answer } = question;
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
-    // const user = JSON.parse(localStorage.getItem("profile"));
+    const { user } = useAuth0();
 
     const navigate = useNavigate();
 
@@ -43,8 +43,8 @@ const Question = ({ question }) => {
             </Text>
             {answer && <Text paddingTop="2">{answer}</Text>}
             <Flex alignItems="center" paddingTop="5">
-                <Like />
-                <Comments />
+                <Like user={user} question={question} />
+                <Comments user={user} question={question} />
             </Flex>
         </Box>
     );
