@@ -6,29 +6,34 @@ import {
     Container,
     Flex,
     Heading,
-    Input,
     Textarea,
     useColorModeValue,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { createQuestion, updateQuestion } from "../../redux/actions/questions";
+import {
+    createQuestion,
+    editQuestion,
+    selectQuestionById,
+} from "../../app/sliceReducers/questionsSlice";
+import user from "../../app/dummyUser";
 
 const Form = ({ currentId, setCurrentId }) => {
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { questionId } = useParams();
+
+    let question = useSelector((state) =>
+        selectQuestionById(state, questionId)
+    );
+    if (!question) question = null;
+
     const [questionData, setQuestionData] = useState({
-        title: "",
-        question: "",
+        content: "",
         selectedFile: "",
     });
-    const question = useSelector((state) =>
-        currentId
-            ? state.questions.find((question) => question._id === currentId)
-            : null
-    );
-    const user = JSON.parse(localStorage.getItem("profile"));
-
     useEffect(() => {
         if (question) setQuestionData(question);
     }, [question]);
@@ -36,50 +41,33 @@ const Form = ({ currentId, setCurrentId }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (currentId) {
-            dispatch(
-                updateQuestion(currentId, {
-                    ...questionData,
-                    name: user?.result?.name,
-                })
-            );
+        if (questionId) {
+            dispatch(editQuestion({questionData}));
         } else {
             dispatch(
-                createQuestion({ ...questionData, name: user?.result?.name })
+                createQuestion(
+                    questionData.content,
+                    user.username,
+                    questionData.selectedFile
+                )
             );
         }
+        navigate("/home");
         handleClear();
     };
     const handleClear = () => {
-        setCurrentId(null);
+        // setCurrentId(null);
         setQuestionData({
-            title: "",
-            question: "",
+            content: "",
             selectedFile: "",
         });
     };
     return (
         <Container className="h-screen" paddingTop="24" textAlign="center">
             <Heading as="h3" size="md" paddingBottom="6">
-                {currentId ? "Editing" : "Creating"} a question
+                {questionId ? "Edit" : "Create"} a question
             </Heading>
             <form onSubmit={handleSubmit}>
-                <Input
-                    placeholder="Title"
-                    marginBottom="6"
-                    bg={
-                        bgColor === "backgroundLight"
-                            ? "white"
-                            : "whiteAlpha.100"
-                    }
-                    value={questionData.title}
-                    onChange={(e) =>
-                        setQuestionData({
-                            ...questionData,
-                            title: e.target.value,
-                        })
-                    }
-                />
                 <Textarea
                     placeholder="What is your Question?"
                     bg={
@@ -87,11 +75,11 @@ const Form = ({ currentId, setCurrentId }) => {
                             ? "white"
                             : "whiteAlpha.100"
                     }
-                    value={questionData.question}
+                    value={questionData.content}
                     onChange={(e) =>
                         setQuestionData({
                             ...questionData,
-                            question: e.target.value,
+                            content: e.target.value,
                         })
                     }
                 />

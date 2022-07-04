@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import InputField from "../Auth/InputField";
 import { signIn, signUp } from "../../redux/actions/auth";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const initialState = {
     firstName: "",
@@ -22,14 +23,19 @@ const Auth = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const { loginWithRedirect, isAuthenticated } = useAuth0();
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (isSignup) {
-            dispatch(signUp(formData, navigate));
-        } else {
-            dispatch(signIn(formData, navigate));
+        if (!isAuthenticated){
+            loginWithRedirect()
         }
+        // if (isSignup) {
+        //     dispatch(signUp(formData, navigate));
+        // } else {
+        //     dispatch(signIn(formData, navigate));
+        // }
     };
 
     const handleChange = (e) => {
@@ -49,9 +55,10 @@ const Auth = () => {
             <section className="flex items-center justify-center mx-auto w-10 h-10 rounded-full p-2 bg-pink-500">
                 <BiLockAlt />
             </section>
+            <button onClick={handleSubmit}>sign</button>
             <form
                 className="flex flex-col items-center"
-                onSubmit={handleSubmit}
+                // onSubmit={handleSubmit}
             >
                 <Heading as="h3" size="md" paddingY="3">
                     {isSignup ? "Sign Up" : "Sign In"}

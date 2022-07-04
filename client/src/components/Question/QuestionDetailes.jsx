@@ -1,38 +1,28 @@
-import { Box, Spinner, Text } from "@chakra-ui/react";
+import { Container, Spinner, Text } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { getQuestion } from "../../redux/actions/questions";
 
 const QuestionDetailes = () => {
-    const { question, questions, isLoading } = useSelector(
-        (state) => state.questions
-    );
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const { question, isLoading } = useSelector((state) => console.log(state));
     const { id } = useParams();
 
     useEffect(() => {
         dispatch(getQuestion(id));
-    }, [id, dispatch]);
+    }, [dispatch, id]);
 
-    const openPost = (_id) => navigate(`/posts/${_id}`);
+    console.log(question);
 
-    if (isLoading) {
-        return (
-            <Box>
-                <Spinner />
-            </Box>
-        );
-    } else {
-        return (
-            <Box className="h-screen" paddingX="10" paddingTop="24">
-                <Text>{question?.title}</Text>
-                <Text>{question?.question}</Text>
-            </Box>
-        );
-    }
+    return isLoading ? (
+        <Spinner />
+    ) : (
+        <Container className="h-screen" paddingTop="24">
+            <Text>{question?.name}</Text>
+        </Container>
+    );
 };
 
 export default QuestionDetailes;

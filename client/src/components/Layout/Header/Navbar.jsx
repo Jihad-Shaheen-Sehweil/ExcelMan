@@ -27,36 +27,40 @@ import { CgLogOff as LogoutIcon } from "react-icons/cg";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import decode from "jwt-decode";
+import { useAuth0 } from "@auth0/auth0-react";
 
-import { LOGOUT } from "../../redux/constants/actionTypes";
+import user from "../../../app/dummyUser";
 
 const Navbar = () => {
     const { toggleColorMode } = useColorMode();
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
-    const [user, setUser] = useState(
-        JSON.parse(localStorage.getItem("profile"))
-    );
-    const dispatch = useDispatch();
+
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const location = useLocation();
 
-    useEffect(() => {
-        const token = user?.token;
+    const { logout, isAuthenticated } = useAuth0();
 
-        if (token) {
-            const decodedToken = decode(token);
+    // const [user, setUser] = useState(
+    //     JSON.parse(localStorage.getItem("profile"))
+    // );
 
-            if (decodedToken.exp * 1000 < new Date().getTime()) handleLogout();
-        }
+    // useEffect(() => {
+    //     const token = user?.token;
 
-        setUser(JSON.parse(localStorage.getItem("profile")));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [location, user]);
+    //     if (token) {
+    //         const decodedToken = decode(token);
+
+    //         if (decodedToken.exp * 1000 < new Date().getTime()) handleLogout();
+    //     }
+
+    //     setUser(JSON.parse(localStorage.getItem("profile")));
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [location, user]);
 
     const handleLogout = () => {
-        dispatch({ type: LOGOUT });
+        logout();
         navigate("/");
-        setUser(null);
     };
 
     return (
@@ -73,7 +77,7 @@ const Navbar = () => {
                 paddingX="10"
                 textColor="white"
             >
-                <Link to="/">
+                <Link to="/home">
                     <Flex
                         alignItems="center"
                         _hover={{ bg: "white", color: "black" }}

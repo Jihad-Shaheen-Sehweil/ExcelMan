@@ -1,7 +1,7 @@
 import React from "react";
 import { Image } from "@chakra-ui/react";
 
-import imageBanner from "../../images/excel_banner.png";
+import imageBanner from "../../../images/excel_banner.png";
 const Bannar = () => {
     return (
         <section className="pt-14">
