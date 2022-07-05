@@ -1,4 +1,4 @@
-import { createSlice, current, nanoid } from "@reduxjs/toolkit";
+import { createSlice, nanoid } from "@reduxjs/toolkit";
 import { sub } from "date-fns";
 
 const initialState = [
@@ -93,14 +93,17 @@ export const questionsSlice = createSlice({
         likeQuestion: {
             reducer(state, action) {
                 const { questionId, userId } = action.payload;
-                console.log(current(state));
 
-                // return state.filter((question) =>
-                //     question.id === questionId
-                //         ? !question.features.likes.includes(userId) &&
-                //           question.features.likes.push(userId)
-                //         : question
-                // );
+                const question = state.filter(
+                    (question) => question.id === questionId
+                )[0];
+                const index = question.features.likes.indexOf(userId);
+                if (!question.features.likes.includes(userId))
+                    question.features.likes.push(userId);
+                else question.features.likes.splice(index, 1);
+                state
+                    .filter((question) => question.id !== questionId)
+                    .push(question);
             },
             prepare(userId, questionId) {
                 return {
@@ -121,7 +124,7 @@ export const { createQuestion, editQuestion, deleteQuestion, likeQuestion } =
 export const selectAllQuestions = (state) => state.questions;
 export const selectQuestionById = (state, questionId) =>
     state.questions.find((question) => question.id === questionId);
-export const selectQuestionLikeCount = (state, questionId) =>
-    state.questions.find((question) => question.id === questionId);
+export const selectQuestionLikedByUser = (state, userId) =>
+state.questions.filter((question) => question.features.likes.includes(userId));
 
 export default questionsSlice.reducer;
