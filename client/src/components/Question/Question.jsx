@@ -15,7 +15,7 @@ const Question = ({ question }) => {
     const navigate = useNavigate();
 
     const handleQusetionDetailes = () => {
-        navigate(`/questions/${question?._id}`);
+        navigate(`/questions/${question?.id}`);
     };
 
     return (

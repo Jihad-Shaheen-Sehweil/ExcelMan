@@ -7,7 +7,7 @@ const Comments = ({ user, question }) => {
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
     const { isAuthenticated } = useAuth0();
 
-    // if (isAuthenticated)
+    if (isAuthenticated)
         return (
             <div className="flex items-center ml-3 group cursor-pointer">
                 <Icon
