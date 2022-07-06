@@ -8,11 +8,15 @@ import Like from "./Featues/Like";
 import UserInfo from "./Featues/UserInfo";
 
 const Question = ({ question }) => {
-    const { content, answer } = question;
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
     const { user } = useAuth0();
-
     const navigate = useNavigate();
+
+    const { content, answer } = question;
+    let cappedQuestion;
+    if (content.length >= 45)
+        cappedQuestion = content.substring(0, 45) + "  ...";
+    else cappedQuestion = content + " ?";
 
     const handleQusetionDetailes = () => {
         navigate(`/questions/${question?.id}`);
@@ -32,14 +36,14 @@ const Question = ({ question }) => {
             <UserInfo user={user} question={question} />
 
             <Text
-                fontWeight="medium"
                 className="border-b"
-                onClick={handleQusetionDetailes}
+                display="inline-block"
                 cursor="pointer"
                 _hover={{ textDecorationLine: "underline" }}
-                display="inline-block"
+                fontWeight="medium"
+                onClick={handleQusetionDetailes}
             >
-                {content}
+                {cappedQuestion}
             </Text>
             {answer && <Text paddingTop="2">{answer}</Text>}
             <Flex alignItems="center" paddingTop="5">

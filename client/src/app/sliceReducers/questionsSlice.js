@@ -7,8 +7,8 @@ const initialState = [
         questionCreatorId: "0",
         questionCreatorUsername: "JS2000",
         content: "what is your name",
-        answer: "",
-        features: { likes: [], comments: [] },
+        answer: "No answer yet",
+        features: { likes: ["qw1"], comments: [] },
         selectedFile: "",
         date: sub(new Date(), { minutes: 10 }).toISOString(),
     },
@@ -18,7 +18,7 @@ const initialState = [
         questionCreatorUsername: "JS2000",
         content: "what old are you",
         answer: "26 years old",
-        features: { likes: [], comments: [] },
+        features: { likes: ["qwe2"], comments: [] },
         selectedFile: "",
         date: sub(new Date(), { minutes: 5 }).toISOString(),
     },
@@ -48,7 +48,7 @@ export const questionsSlice = createSlice({
                         questionCreatorImg,
                         id: nanoid(),
                         content,
-                        answer: "",
+                        answer: "No answer yet",
                         features: { likes: [], comments: [] },
                         selectedFile,
                         date: new Date().toISOString(),
@@ -118,13 +118,16 @@ export const questionsSlice = createSlice({
     },
 });
 
-export const { createQuestion, editQuestion, deleteQuestion, likeQuestion } =
-    questionsSlice.actions;
+export const {
+    createQuestion,
+    editQuestion,
+    deleteQuestion,
+    likeQuestion,
+    commentQuestion,
+} = questionsSlice.actions;
 
 export const selectAllQuestions = (state) => state.questions;
 export const selectQuestionById = (state, questionId) =>
     state.questions.find((question) => question.id === questionId);
-export const selectQuestionLikedByUser = (state, userId) =>
-state.questions.filter((question) => question.features.likes.includes(userId));
 
 export default questionsSlice.reducer;

@@ -20,6 +20,7 @@ const Navbar = () => {
                 height="3.5rem"
                 paddingX="10"
                 textColor="white"
+                zIndex="sticky"
             >
                 <NavbarIcons />
                 <NavbarProfile />

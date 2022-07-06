@@ -5,29 +5,21 @@ import {
     AiFillLike as LikeIcon,
 } from "react-icons/ai";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-    likeQuestion,
-    selectQuestionLikedByUser,
-} from "../../../app/sliceReducers/questionsSlice";
+import { useDispatch } from "react-redux";
+import { likeQuestion } from "../../../app/sliceReducers/questionsSlice";
 
 const Like = ({ user, question }) => {
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
-
-    const { sub: userId } = user;
-    const { id: questionId, features } = question;
-    const { likes } = features;
-
-    const hasLiked = useSelector((state) =>
-        selectQuestionLikedByUser(state, userId)
-    );
-
     const { isAuthenticated } = useAuth0();
     const dispatch = useDispatch();
 
+    // const { sub: userId } = user;
+    const { id: questionId, features } = question;
+    const { likes } = features;
+
     const handleLike = () => {
         if (isAuthenticated) {
-            dispatch(likeQuestion(userId, questionId));
+            dispatch(likeQuestion(user?.sub, questionId));
         }
     };
     return (

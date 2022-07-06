@@ -29,14 +29,13 @@ const UserInfo = ({ question, user }) => {
         date,
         questionCreatorImg,
     } = question;
-    // const { sub: userId } = user;
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [questionId, setQuestionId] = useState(null);
 
     const handleProfileClick = () => {
-        navigate(`/profile/${user?.sub}`);
+        navigate(`/profile/${user?.nickname}`);
     };
 
     const handleEdit = () => {
@@ -53,16 +52,14 @@ const UserInfo = ({ question, user }) => {
             justifyContent="space-between"
             alignItems="center"
             marginRight="5"
-            className="items-center mr-5"
         >
-            <Flex alignItems="center">
-                <Avatar src={questionCreatorImg} />
+            <Flex alignItems="center" onClick={handleProfileClick}>
+                <Avatar cursor="pointer" src={questionCreatorImg} />
                 <Text
                     marginLeft="2"
                     fontWeight="bold"
                     _hover={{ textDecorationLine: "underline" }}
                     cursor="pointer"
-                    onClick={handleProfileClick}
                 >
                     {questionCreatorUsername}
                 </Text>

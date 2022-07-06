@@ -12,7 +12,7 @@ import Lessons from "./components/Lessons/Lessons";
 import Profile from "./components/Layout/Header/Profile";
 import Navbar from "./components/Layout/Header/Navbar/Navbar";
 import Footer from "./components/Layout/Footer/Footer";
-import QuestionDetailes from "./components/Question/QuestionDetailes";
+import QuestionDetailes from "./components/Question/QuestionDetailes/QuestionDetailes";
 import Home from "./components/Layout/Home";
 import Auth from "./components/Auth/Auth";
 import RequireAuth from "./components/Auth/RequireAuth";
