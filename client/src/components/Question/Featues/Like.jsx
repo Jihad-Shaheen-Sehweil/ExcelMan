@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Icon, Text, useColorModeValue } from "@chakra-ui/react";
 import {
     AiOutlineLike as NotLikeIcon,
     AiFillLike as LikeIcon,
@@ -23,7 +23,7 @@ const Like = ({ user, question }) => {
         }
     };
     return (
-        <div className="flex items-center ml-3 group cursor-pointer">
+        <Box as="div" className="flex items-center ml-3 group cursor-pointer">
             <Icon
                 className="group-hover:text-blue-600"
                 color={bgColor === "backgroundLight" ? "black" : "white"}
@@ -35,7 +35,7 @@ const Like = ({ user, question }) => {
             <Text className="pl-1 text-xs group-hover:text-blue-600">
                 {likes.length}
             </Text>
-        </div>
+        </Box>
     );
 };
 

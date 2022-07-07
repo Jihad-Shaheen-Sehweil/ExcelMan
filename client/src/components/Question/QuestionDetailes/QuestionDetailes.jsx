@@ -14,9 +14,12 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { selectQuestionById } from "../../../app/sliceReducers/questionsSlice";
 import UserInfo from "../Featues/UserInfo";
-import Comments from "../Featues/Comments";
+import Comments from "../Featues/Comment/Comment";
 import Like from "../Featues/Like";
 import Back from "./Back";
+import Comment from "../Featues/Comment/Comment";
+import CommentInput from "../Featues/Comment/CommentInput";
+import CommentSection from "../Featues/Comment/CommentSection";
 
 const QuestionDetailes = () => {
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
@@ -69,10 +72,15 @@ const QuestionDetailes = () => {
 
             <Flex>
                 <Like question={question} user={user} />
-                <Comments />
+                <Comment />
             </Flex>
 
-            <Text>Comments</Text>
+            <Text paddingY="4" fontWeight="bold">
+                Comments
+            </Text>
+
+            <CommentInput />
+            <CommentSection />
         </Box>
     );
 };

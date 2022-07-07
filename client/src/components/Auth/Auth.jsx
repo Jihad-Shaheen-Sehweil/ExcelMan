@@ -1,9 +1,15 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { Button, Center, Flex, Text } from "@chakra-ui/react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
     const { loginWithRedirect } = useAuth0();
+    const navigate = useNavigate();
+
+    const backHome = () => {
+        navigate("/");
+    };
 
     // do the theme coloring in this jsx
     return (
@@ -20,7 +26,7 @@ const Auth = () => {
                 <Button
                     bgColor="blue.600"
                     color="whiteAlpha.900"
-                    onClick={loginWithRedirect}
+                    onClick={backHome}
                 >
                     Home
                 </Button>

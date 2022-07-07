@@ -16,6 +16,8 @@ import QuestionDetailes from "./components/Question/QuestionDetailes/QuestionDet
 import Home from "./components/Layout/Home";
 import Auth from "./components/Auth/Auth";
 import RequireAuth from "./components/Auth/RequireAuth";
+import AnswerForm from "./components/Question/Featues/Answer/AnswerForm";
+import NotFound from "./components/Layout/NotFound";
 
 function App() {
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
@@ -79,6 +81,15 @@ function App() {
                             </RequireAuth>
                         }
                     />
+                    <Route
+                        path="questions/answer/:id"
+                        element={
+                            <RequireAuth>
+                                <AnswerForm />
+                            </RequireAuth>
+                        }
+                    />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />
             </Router>

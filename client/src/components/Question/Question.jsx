@@ -3,16 +3,19 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import Comments from "./Featues/Comments";
+import Comment from "./Featues/Comment/Comment";
 import Like from "./Featues/Like";
 import UserInfo from "./Featues/UserInfo";
+import Answer from "./Featues/Answer/Answer";
 
 const Question = ({ question }) => {
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
     const { user } = useAuth0();
     const navigate = useNavigate();
 
+    const uniqueUser = process.env.REACT_APP_USER_ID;
     const { content, answer } = question;
+
     let cappedQuestion;
     if (content.length >= 45)
         cappedQuestion = content.substring(0, 45) + "  ...";
@@ -48,7 +51,8 @@ const Question = ({ question }) => {
             {answer && <Text paddingTop="2">{answer}</Text>}
             <Flex alignItems="center" paddingTop="5">
                 <Like user={user} question={question} />
-                <Comments user={user} question={question} />
+                <Comment handleComment={handleQusetionDetailes} />
+                {/* {user?.sub === uniqueUser && <Answer questionId={question?.id} />} */}
             </Flex>
         </Box>
     );
