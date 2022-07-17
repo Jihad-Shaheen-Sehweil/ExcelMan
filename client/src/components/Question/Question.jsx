@@ -7,14 +7,16 @@ import Comment from "./Featues/Comment/Comment";
 import Like from "./Featues/Like";
 import UserInfo from "./Featues/UserInfo";
 import Answer from "./Featues/Answer/Answer";
+import { useEffect } from "react";
 
 const Question = ({ question }) => {
     const bgColor = useColorModeValue("backgroundLight", "backgroundDark");
     const { user } = useAuth0();
     const navigate = useNavigate();
 
-    const uniqueUser = process.env.REACT_APP_USER_ID;
+    const mainUser = process.env.REACT_APP_USER_ID;
     const { content, answer } = question;
+    useEffect(() => {}, [user]);
 
     let cappedQuestion;
     if (content.length >= 45)
@@ -52,7 +54,7 @@ const Question = ({ question }) => {
             <Flex alignItems="center" paddingTop="5">
                 <Like user={user} question={question} />
                 <Comment handleComment={handleQusetionDetailes} />
-                {/* {user?.sub === uniqueUser && <Answer questionId={question?.id} />} */}
+                {user?.sub === mainUser && <Answer questionId={question?.id} />}
             </Flex>
         </Box>
     );

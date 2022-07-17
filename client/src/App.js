@@ -82,7 +82,7 @@ function App() {
                         }
                     />
                     <Route
-                        path="questions/answer/:id"
+                        path="/questions/answer/:id"
                         element={
                             <RequireAuth>
                                 <AnswerForm />

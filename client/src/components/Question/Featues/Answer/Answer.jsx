@@ -8,7 +8,7 @@ const Answer = ({ questionId }) => {
     const navigate = useNavigate();
 
     const handleAnswer = () => {
-        navigate(`/questions/${questionId}`);
+        navigate(`/questions/answer/${questionId}`);
     };
 
     return (

@@ -89,7 +89,30 @@ export const questionsSlice = createSlice({
                 };
             },
         },
-        answerQuestion: {},
+        answerQuestion: {
+            reducer(state, action) {
+                const { updatedQuestion } = action.payload;
+                const { questionId, questionData } = updatedQuestion;
+                const { answer, selectedFile } = questionData;
+
+                let question = state.filter(
+                    (question) => question.id === questionId
+                );
+
+                question = { ...question, answer, selectedFile };
+
+                state
+                    .filter((question) => question.id !== questionId)
+                    .push(question);
+            },
+            prepare(updatedQuestion) {
+                return {
+                    payload: {
+                        updatedQuestion,
+                    },
+                };
+            },
+        },
         likeQuestion: {
             reducer(state, action) {
                 const { questionId, userId } = action.payload;
@@ -124,6 +147,7 @@ export const {
     deleteQuestion,
     likeQuestion,
     commentQuestion,
+    answerQuestion,
 } = questionsSlice.actions;
 
 export const selectAllQuestions = (state) => state.questions;
